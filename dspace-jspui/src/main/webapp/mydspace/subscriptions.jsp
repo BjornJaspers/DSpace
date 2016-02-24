@@ -29,6 +29,8 @@
 <%@ page import="org.dspace.content.Collection" %>
 <%@ page import="org.dspace.app.util.CollectionDropDown" %>
 <%@ page import="java.util.List" %>
+<%@ page import="org.dspace.app.webui.util.UIUtil" %>
+<%@ page import="org.dspace.core.Context" %>
 
 <%
     List<Collection> availableSubscriptions =
@@ -37,6 +39,7 @@
         (List<Collection>) request.getAttribute("subscriptions");
     boolean updated =
         ((Boolean) request.getAttribute("updated")).booleanValue();
+    Context context = UIUtil.obtainContext(request);
 %>
 
 <dspace:layout style="submission" locbar="link"
@@ -65,7 +68,7 @@
     for (int i = 0; i < availableSubscriptions.size(); i++)
     {
 %>
-                <option value="<%= availableSubscriptions.get(i).getID() %>"><%= CollectionDropDown.collectionPath(availableSubscriptions.get(i), 0) %></option>
+                <option value="<%= availableSubscriptions.get(i).getID() %>"><%= CollectionDropDown.collectionPath(context, availableSubscriptions.get(i), 0) %></option>
 <%
     }
 %>
@@ -95,7 +98,7 @@
                   --%>
 
                  <td class="<%= row %>RowOddCol">
-                      <a href="<%= request.getContextPath() %>/handle/<%= subscriptions.get(i).getHandle() %>"><%= CollectionDropDown.collectionPath(subscriptions.get(i),0) %></a>
+                      <a href="<%= request.getContextPath() %>/handle/<%= subscriptions.get(i).getHandle() %>"><%= CollectionDropDown.collectionPath(context, subscriptions.get(i),0) %></a>
                  </td>
                  <td class="<%= row %>RowEvenCol">
                     <form method="post" action=""> 
