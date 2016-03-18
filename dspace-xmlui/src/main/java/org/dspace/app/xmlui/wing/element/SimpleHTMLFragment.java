@@ -35,18 +35,18 @@ import org.xml.sax.helpers.NamespaceSupport;
 
 /**
  * This class represents data that is translated from simple HTML or plain text.
- * 
+ *
  * This class represents a simple HTML fragment. It allows for user-supplied
  * HTML to be translated on the fly into DRI.
- * 
+ *
  * At the present time it only supports the following tags: h1, h2, h3, h4, h5,
  * p, a, b, i, u, ol, li and img. Each are translated into their DRI equivalents, note
  * the "h" tags are translated into a paragraph of rend=heading.
- * 
- * If the linkbreaks flag is set then line breaks are treated as paragraphs. This 
- * allows plain text files to also be included and they will be mapped into DRI as 
+ *
+ * If the linkbreaks flag is set then line breaks are treated as paragraphs. This
+ * allows plain text files to also be included and they will be mapped into DRI as
  * well.
- * 
+ *
  * @author Scott Phillips
  * @author Jay Paz
  */
@@ -61,7 +61,7 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 
 	/**
 	 * Construct a fragment object for translating into DRI.
-	 * 
+	 *
 	 * @param context
 	 *            (Required) The context this element is contained in, such as
 	 *            where to route SAX events and what i18n catalogue to use.
@@ -81,7 +81,7 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 
 	/**
 	 * Translate this element into SAX
-	 * 
+	 *
 	 * @param contentHandler
 	 *            (Required) The registered contentHandler where SAX events
 	 *            should be routed too.
@@ -141,10 +141,10 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 
 	/**
 	 * Remove the given content from the Element.
-	 * 
+	 *
 	 * If the content is an element then render it as text and include it's
 	 * children in the parent.
-	 * 
+	 *
 	 * @param content
 	 *            The DOM Content to be removed.
 	 */
@@ -202,10 +202,10 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 	/**
 	 * Wrap the given set of contents into a paragraph and place it at the
 	 * supplied index.
-	 * 
+	 *
 	 * This method will also check for trivial paragraphs, i.e. those that
 	 * contain nothing but white space. If they are found then they are removed.
-	 * 
+	 *
 	 * @param parent
 	 *            The parent element to attach the wrapped paragraph, too.
 	 * @param index
@@ -265,7 +265,7 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 	/**
 	 * Ensure that the given element only has the supplied attributes. Also
 	 * remove any possible namespaces on the attributes.
-	 * 
+	 *
 	 * @param element
 	 *            The element to be checked.
 	 * @param names
@@ -291,7 +291,7 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 
 	/**
 	 * Move the old attribute to a new attribute.
-	 * 
+	 *
 	 * @param element
 	 *            The element
 	 * @param oldName
@@ -309,15 +309,15 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 
 	/**
 	 * Translate the given HTML fragment into a DRI document.
-	 * 
+	 *
 	 * The translation is broken up into two steps, 1) recurse through all
 	 * elements and either translate them into their DRI equivalents or remove
 	 * them from the document.
-	 * 
+	 *
 	 * The second step, 2) is to iterate over all top level elements and ensure
 	 * that they only consist of paragraphs. Also at this stage if linkBreaks is
 	 * true then \n are treated as paragraph breaks.
-	 * 
+	 *
 	 * @param parent
 	 *            The Element to translate into DRI.
 	 */
@@ -454,7 +454,7 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 			List<Content> removed = new ArrayList<Content>();
 			for (int i = 0; i < parent.getContentSize(); i++) {
 				Content current = parent.getContent(i);
-				
+
 				if ((current instanceof Element)
 						&& ("p".equals(((Element) current).getName()))) {
 					// A paragraph is being open, combine anything up to this
@@ -517,15 +517,15 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 	 * from the originating HTML fragment, 2) to get around a JDOM bug where it
 	 * can not output SAX events for just a document fragment. Since it only
 	 * works with documents this class was created to filter out the events.
-	 * 
+	 *
 	 * As far as I can tell, the first time the bug was identified is in the
 	 * following email, point #1:
-	 * 
+	 *
 	 * http://www.servlets.com/archive/servlet/ReadMsg?msgId=491592&listName=jdom-interest
-	 * 
+	 *
 	 * I, Scott Phillips, checked the JDOM CVS source tree on 3-8-2006 and the
 	 * bug had not been patch at that time.
-	 * 
+	 *
 	 */
 	public static class SAXFilter implements ContentHandler, LexicalHandler {
 
@@ -546,7 +546,7 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 		/**
 		 * Create the qName for the element with the given localName and
 		 * namespace prefix.
-		 * 
+		 *
 		 * @param localName
 		 *            (Required) The element's local name.
 		 * @return
@@ -650,4 +650,3 @@ public class SimpleHTMLFragment extends AbstractWingElement {
 		}
 	}
 }
- 
